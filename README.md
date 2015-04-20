@@ -4,8 +4,11 @@ It's a mostly automated way of grabbing data and formatting it into a way python
 
 In the future, I'll be working on...(and need help with)
 1. Doing some basic statistics 
+
 2. Calculating rates, or at least finding the positions when changes the patterns happen
+
 3. Finding a faster way to plot surfaces
+
 4. Integrating the results from XRD data and Raman data from identical experiments, that is, as an example: comparing difference curves and rate change curves for the exact same experiment.  There are other reasons as well...
 
 
