@@ -6,11 +6,11 @@ import numpy as np
 #import matplotlib.pyplot as plt
 #from mpl_toolkits.mplot3d import Axes3D
 
-## Version 0.0.0.2
+## Version 09.20.2015
 
 
 
-filelist = pd.read_csv('1001y_zorite.CSV')  #imports a CSV file into pandas, I need a non-empty pandas to append things to
+filelist = pd.read_csv('your_data_path_here.CSV')  #imports a CSV file into pandas, I need a non-empty pandas to append things to
 ##### how to I read just any file?  It shouldn't matter which file since they all have the same X values
 ##### it would be nice to just run this code and then select a file....
 ##### and also set the working directory???
@@ -68,7 +68,14 @@ X.to_pickle('X.pkl')
 Y.to_pickle('Y.pkl')
 #Z.to_pickle('Z.pkl')
 
+# what are the minimun and maximum intensities in the files?, need some code here...
+
+    
+
 print ""
 print "SUCCESS: You have pickled the pandas."
+print "Number of file imported ", len(Y.columns)
+print "Data X range is from      ", min(X.values) ,"to ", max(X.values)
+
 
 ### plotting has been moved to another py file
