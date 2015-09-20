@@ -1,115 +1,82 @@
-#import glob
+import glob
 #import os  # presumable I can use this to enable me to run this from any dir
 import pandas as pd
 import numpy as np
-from pylab import *
-import matplotlib.pyplot as plt
-#from matplotlib.widgets import Slider, Button, RadioButtons
-import matplotlib.cm as cm
-from mpl_toolkits.mplot3d import Axes3D
+#from pylab import *
+#import matplotlib.pyplot as plt
+#from mpl_toolkits.mplot3d import Axes3D
 
-### version 0.0.3
-
-### Import the saved pickled pandas
-
-X = pd.read_pickle('X.pkl')
-Y = pd.read_pickle('Y.pkl')
-#Z = pd.read_pickle('Z.pkl')
+## Version 09.20.2015
+## tested with pandas version 0.15.2
 
 
-numFiles = len(Y.columns)
-Z = pd.DataFrame(range(0,(numFiles),1))
 
-# these store the orignal data in a serpeate var, just in case I need it later
-XX = X
-YY = Y
-ZZ = Z
+filelist = pd.read_csv('your_data_path_here.CSV')  #imports a CSV file into pandas, I need a non-empty pandas to append things to
+##### how to I read just any file?  It shouldn't matter which file since they all have the same X values
+##### it would be nice to just run this code and then select a file....
+##### and also set the working directory???
 
 
-X, Z = np.meshgrid(X, Z)
+df1_x_name = filelist.columns.values[0]  #finds the column header for the [0]
+df1_y_name = filelist.columns.values[1]  #finds the colunm header for the [1]
 
-Y = Y.T
+filelist=filelist.rename(columns={df1_x_name:'X'}) # renames [0] to 'X'
+filelist=filelist.rename(columns={df1_y_name:'Y'}) # renames [1] to 'Y'
 
-#################################
-### Start plotting figures ######
-#################################
-
-
-fig = plt.figure()
-
-# Edit the values below to make the plot how you like it
-maxYvalue = 20 + max(Y.index.values)
-minZ = 0
-maxZ = 60
-contour_levels = 150         # higher values = better resolution
-surface_rstride = 100         # lower values = better resolution
-surface_cstride = 100         # lower values = better resolution
-colormap = 'jet'             #good options are: jet, bone, gnuplot2, afmhot, add _r to reverse colors
-Xlimit = (50, 1800)
-Ylimit = (0, maxYvalue)
-
-################################################
-################################################
-
-## Contour plot only (the best IMHO)
-#
-ax2 = plt.figure()
-ax2 = fig.add_subplot(111)#, projection='3d')
-ax2=plt.contourf(X, Z, Y, contour_levels, cmap=colormap, vmin=minZ, vmax=maxZ)
-#
-plt.title('Raman Analysis')
-plt.xlabel('Raman Shift')
-plt.ylabel('Spectrum Number')
-plt.colorbar(orientation='vertical', shrink=0.8)
-#plt.xlim(100,1000)
-#plt.ylim(0,20)
+filelist = filelist.drop('Y', 1)  # now we delete the y column because we are going to read again below
+                                  # I can probably just do this set above, but it shows what I'm trying to do  
+Xfilelist = filelist.drop('X', 1)
 
 
-################################################
-################################################
+###
+### ok, now I start building a large pandas with all the data in it.  
+### Each new column will be the Y column of each imported csv data file
+###
+
+for counter, files in enumerate(glob.glob("*.CSV")):  #finds all CSV files in the current working folder
+    
+    newfile = pd.read_csv(files)          # Read a CSV file, presumable the first in alpha/numerical order
+    #print newfile
+    #print counter
+    numFiles = counter                      # total number files itterated, scaler
+    df1_y_name = newfile.columns.values[1]  # finds column header name for [1]
+    df1_x_name = newfile.columns.values[0]
+    
+    newfile=newfile.rename(columns={df1_y_name:counter})  # renames column header to current counter #
+    #newfile=newfile.rename(columns={df1_x_name:counter})
+    
+    filelist = filelist.join(newfile[counter], how='right', rsuffix='a') # joins 'counter #' column to the main pandas list
+    Xfilelist = Xfilelist.join(filelist[counter], how='right', rsuffix='x')  # here I want to make a pandas for the X values
+                                                                        #with the same number of columns as the Y values.  why?  I don't know yet
+    
+    
+#filelist.to_csv('./other_files/AllData.CSV')  # uncomment to save the filelist csv file
+                                               # pandas saved below
 
 
-## Surface and contour plot  ONLY USE FOR SMALL DATA SETS
-# uncomment below to use it 
+
+X = filelist['X'].values  # the X values are the values in Raman Shift in cm-1
+X = pd.DataFrame(X)   #convert it to a pandas
 
 
-#ax1 = fig.add_subplot(111, projection='3d')
-#ax1.plot_surface(X, Z, Y, rstride=surface_rstride, cstride=surface_cstride, cmap=colormap, alpha=1, linewidth=0.0)#//
-#
-#ax1.view_init(azim=-90, elev=35)  
-#ax1.set_title('Y into Zorite')    
-#ax1.set_xlabel('Raman Shift')
-#ax1.set_ylabel('File Number')
-#ax1.set_zlabel('Intensity')
-##ax1.set_ylim(Ylimit) 
-##ax1.contour(X, Z, Y, zdir='x', offset=3, cmap=cm.hsv)#// Choose any of these three
-##ax1.contour(X, Z, Y, zdir='y', offset=3, cmap=cm.prism)#//
-#ax1.contourf(X, Z, Y, contour_levels, zdir='z', offset=maxYvalue, cmap=colormap, alpha=.4, vmin=minZ, vmax=maxZ)#//
-#
+Y = filelist[0::]            # Y is already a panda, y values are the intensity data for each data file
+Y = Y.drop('X', 1)           # now I delete the 'X' because those values are in the xx varible
 
-################################################
-################################################
+#Z = range(0,(numFiles),1)    #makes a list of from 0 to numFiles as a z scaler, need this to itterate over
+#Z = pd.Series(Z)             #convert it to a pandas
 
-## 3D line line plot
-## uncomment below to use it
+X.to_pickle('X.pkl')
+Y.to_pickle('Y.pkl')
+#Z.to_pickle('Z.pkl')
 
+# what are the minimun and maximum intensities in the files?, need some code here...
 
-#ax3 = fig.add_subplot(111, projection='3d')
-#
-#for i in ZZ.index:    
-#    ax3.plot(XX, YY[i], i, c='k', linewidth=0.08) 
-#
-#### chart labels
-##ax3.set_title('Y into Zorite')    
-#ax3.set_xlabel('Raman Shift')
-#ax3.set_ylabel('Intensity')
-#ax3.set_zlabel('File Number')
-#
-##ax.set_xlim(200,400)
-#
-#ax3.view_init(azim=-90, elev=120)  
+    
+
+print ""
+print "SUCCESS: You have pickled the pandas."
+print "Number of file imported ", len(Y.columns)
+print "Data X range is from      ", min(X.values) ,"to ", max(X.values)
 
 
-  
-plt.show()  #you always need this to show the plot each time you run
-#fig.show()
+### plotting has been moved to another py file
