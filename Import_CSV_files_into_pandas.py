@@ -6,14 +6,14 @@ import numpy as np
 #import matplotlib.pyplot as plt
 #from mpl_toolkits.mplot3d import Axes3D
 
-## Version 0.0.0.2
+## Version 9.23.2015
 
 
 
-filelist = pd.read_csv('1001y_zorite.CSV')  #put directory/file name here: imports a CSV file into pandas, I need a non-empty pandas to append things to
+filelist = pd.read_csv('datafile.CSV')  #put directory/file name here: imports a CSV file into pandas, I need a non-empty pandas to append things to
 ##### how to I read just any file?  It shouldn't matter which file since they all have the same X values
 ##### it would be nice to just run this code and then select a file....
-##### and also set the working directory???
+##### and also, how can I request the user to select the working directory???
 
 
 df1_x_name = filelist.columns.values[0]  #finds the column header for the [0]
@@ -22,8 +22,8 @@ df1_y_name = filelist.columns.values[1]  #finds the colunm header for the [1]
 filelist=filelist.rename(columns={df1_x_name:'X'}) # renames [0] to 'X'
 filelist=filelist.rename(columns={df1_y_name:'Y'}) # renames [1] to 'Y'
 
-filelist = filelist.drop('Y', 1)  # now we delete the y column because we are going to read again below
-                                  # I can probably just do this set above, but it shows what I'm trying to do  
+filelist = filelist.drop('Y', 1)  # now we delete the y column because we are going to read again below /
+                                  # I can probably just do this in the above above, but this shows what I'm trying to do.  
 Xfilelist = filelist.drop('X', 1)
 
 
@@ -44,9 +44,9 @@ for counter, files in enumerate(glob.glob("*.CSV")):  #finds all CSV files in th
     newfile=newfile.rename(columns={df1_y_name:counter})  # renames column header to current counter #
     #newfile=newfile.rename(columns={df1_x_name:counter})
     
-    filelist = filelist.join(newfile[counter], how='right', rsuffix='a') # joins 'counter #' column to the main pandas list
-    Xfilelist = Xfilelist.join(filelist[counter], how='right', rsuffix='x')  # here I want to make a pandas for the X values
-                                                                        #with the same number of columns as the Y values.  why?  I don't know yet
+    filelist = filelist.join(newfile[counter], how='right', rsuffix='a') # joins 'counter #' column to the main pandas list /
+    Xfilelist = Xfilelist.join(filelist[counter], how='right', rsuffix='x')  # here I want to make a pandas for the X values /
+                                                   #with the same number of columns as the Y values
     
     
 #filelist.to_csv('./other_files/AllData.CSV')  # uncomment to save the filelist csv file
@@ -68,6 +68,7 @@ X.to_pickle('X.pkl')
 Y.to_pickle('Y.pkl')
 #Z.to_pickle('Z.pkl')
 
+# maxYlist simply grabs the highest intensity value for all of your patterns, and puts it in a list.  
 maxYlist = []
 for i in Y.columns:
     maxYlist.append(max(Y[i].values))
