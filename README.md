@@ -29,22 +29,23 @@ If at any point you need help, just ask :)  I can supply some data if you need i
 
 2. Second, run the Import_CSV_files_into_pandas.py from the directory where your data is located.  In the Canopy IDE (which is what I use, this is pretty easy.  From the Python working window, just click on the "change working directory ..." and select the directory that has all the data.
 
-3. Run it, and if successful you will see a "success" in the text.  Your data will not be in pandas format.  If it's not successful you'll get a bunch of errors.
+3. Run it, and if successful you will see a "success" in the text, plus some basic data statistics to let you know how it all went.  Your data will not be in pandas format.  If the CSV -> Pandas conversion was not successful, you'll get a bunch of errors and you'll need to figure out what went wrong.  I don't have any error exceptions in the code.
 
 ## Now plot all the data
 
 I put the default plotting as a filled contour, but you can use the other ones (by uncommenting them) or add others as you like.
 
-1. While still in the working directory above, you'll now have a few more files called X.pkl, Y.pkl, Z.pkl (the pickled pandas from the previous step). No need to edit these, but you may want to make backup copies.
+1. While still in the working directory above, you'll now have a few more files called X.pkl and Y.pkl (the pickled pandas from the previous step). No need to edit these, but you may want to make backup copies.
 
-2. There are three options provided (again, add your own if you like) on how to plot the data here: 1) 3D line plot, 2) filled contour plot, 3) surface plot + filled contour plot.  NOTE: if you have a lot of data (e.g. 200 diffraction files with 2000+ lines each), then the 3D line plot and the surface plots are going to bog your system.  I wish I knew of a way to make it faster, but I don't.
+2. There are three options provided (again, add your own if you like) on how to plot the data here: 1) 3D line plot, 2) filled contour plot, 3) surface plot + filled contour plot.  NOTE: if you have a lot of data (e.g. 200 diffraction files with 2000+ lines each), then the 3D line plot and the surface plots are going to likely bog your system.  I wish I knew of a way to make it faster, but I don't.
 
-3. Anyway, The contour plot is the best in my mind.  The 3D plots are hard to get the view angle right without distortion, and for scientific purposes, you want to know if the peaks in the XRD or Raman move to the left or right anyway.  The best way to see peak movment is with a contour plot.  Luckily, the contour plots are much faster to render.
+3. Anyway, The contour plot is the best in my mind.  The 3D plots are hard to get the view angle right without distortion, and for scientific purposes, you want to know if the peaks in the XRD or Raman move to the left or right anyway.  The best way to see peak movment is with a contour plot.  Luckily, the contour plots are much faster to render.  
 
-4. You'll need to edit some parameters manually to make the figures look to your specifications.  I put all the figure editing properties together in one area to make this simpler (I think it does...)  see the "Start Figure Plotting" section in the code for the things you can easily change.
+4. You'll need to edit some parameters manually to make the figures look to your specifications.  I put the majority of the figure editing properties together in one area to make this simpler (I think it does...)  see the "Start Figure Plotting" section in the code, and comments therein, for the things you can easily change.
 
 5. Add subplots if you need to.  Adding subplots will make for good exporting to single PDFs for vector based graphics.
 
+6. If you have any comments or suggestions, please let me know.
 
 end.
 
