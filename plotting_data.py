@@ -5,15 +5,14 @@ import numpy as np
 from pylab import *
 import matplotlib.pyplot as plt
 import matplotlib.mlab as mlab
-#from matplotlib.widgets import Slider, Button, RadioButtons
 import matplotlib.cm as cm
 from mpl_toolkits.mplot3d import Axes3D
-import plotly.plotly as py
-# (*) Useful Python/Plotly tools
-import plotly.tools as tls
+#import plotly.plotly as py             ## I'm working on getting plotly graphs too, will need these later
+# (*) Useful Python/Plotly tools        ## I'm working on getting plotly graphs too, will need these later
+#import plotly.tools as tls             ## I'm working on getting plotly graphs too, will need these later
 
 # (*) Graph objects to piece together plots
-from plotly.graph_objs import *
+#from plotly.graph_objs import *        ## I'm working on getting plotly graphs too, will need these later
 
 
 ### version 09.23.2015
@@ -31,7 +30,8 @@ Y = pd.read_pickle('Y.pkl')
 numFiles = len(Y.columns)
 Z = pd.DataFrame(range(0,(numFiles),1))
 
-# these store the orignal data in a serpeate var, just in case I need it later
+### these store the orignal data in a serpeate var, needed for making the 3D line plots.  
+### Uncomment XX, YY, ZZ for 3D line plots
 #XX = X
 #YY = Y
 #ZZ = Z
@@ -108,7 +108,8 @@ plt.ylim(Ylimit)  #spectral range to plot
 ################################################
 ################################################
 
-## 3D line line plot, this work 'ok'
+## 3D line line plot, this work 'ok' for data that are all about the same intensity.
+## To make these 3D line plots, goto the top of this file and uncomment the code for XX, YY, and ZZ.
 #
 #ax3 = fig.add_subplot(111, projection='3d')
 #
