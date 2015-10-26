@@ -1,4 +1,4 @@
-# 3D-plotting-Raman-XRD-series
+# 3D-data-plotting
 take times series data, e.g. Raman or XRD, and plots in 3D and/or contour.
 It's a mostly automated way of grabbing data and formatting it into a way python can plot it.
 
