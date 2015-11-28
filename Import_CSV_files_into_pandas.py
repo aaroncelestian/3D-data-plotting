@@ -130,13 +130,21 @@ maxYlist = []
 for i in Y.columns:
     maxYlist.append(max(Y[i].values))
 
-print ""
-print "SUCCESS: X.pkl and Y.pkl created in the working directory."
-print "Number of files proccessed: ", numFiles+1 #max(Y.index.values)
-print "Data range X axis:          ", min(X.values), " to", max(X.values)
-print "Max intensity:              ", max(maxYlist)
+# check to see if the user input the correct file-extension format.  
 
-
+if max(Y[:].columns) < 1:
+    print "Something went wrong. Not all the data was written successfully."
+    print "You should check the case-sensitive file extensions of your files."
+    print "Change the *.CSV to *.csv in the code (or vis-versa), or
+    print "change the filename extensions to have a *.CSV or *.csv extension"
+else:    
+    print ""
+    print "SUCCESS: X.pkl and Y.pkl created in the working directory."
+    print "Number of files proccessed: ", numFiles+1 #max(Y.index.values)
+    print "Data range X axis:          ", min(X.values), " to", max(X.values)
+    print "Max intensity:              ", max(maxYlist)
+    print ""
+    
 
 
 ### plotting has been moved to another py file...  plotting_data.py
