@@ -22,14 +22,14 @@ If at any point you need help, just ask :)  I can supply some data if you need i
 
 3. Also, make sure that the X values don't change from file, to file, to file.  That is, all the X-value measurements should be exactly the same in all files.  This is usually the case if you do a single experiment where all the data is collected using the same conditions.  The reason why you need to have all the X values the same is because this code only grabs the X-values from the first file that's imported.  If the X-values change from file to file, then your data just won't look right.  I can probably add a bit of code to output if your data matches the correct X-value format or not. 
 
-4. Also, make sure that the filenames are in a good format.  You don't want filenames like, 1.csv, 2.csv, ... 20.csv, etc.  That's because when you run this script, some of the files will be out of order.  You should rename the files to be something XRD_Data_Run_01_00001.csv -- where the 00001 part in the incremented number.  How you do that will depend on your system, but it's something to keep in mind when you're writing the files from the experiment to begin with.
+4. Also, make sure that the filenames are in a good format.  You don't want filenames like, 1.CSV, 2.CSV, ... 20.CSV, etc.  That's because when you run this script, some of the files will be out of order.  You should rename the files to be something XRD_Data_Run_01_00001.CSV -- where the 00001 part in the incremented number.  How you do that will depend on your system, but it's something to keep in mind when you're writing the files from the experiment to begin with.
 
 ## Grab all your data and put them into Pandas
 1. First, edit the Import_CSV_files_into_pandas.py  You'll have to manually type in the first input file name in the python code.  The comments in the code will tell you where to do this.
 
 2. Second, run the Import_CSV_files_into_pandas.py from the directory where your data is located.  In the Canopy IDE (which is what I use, this is pretty easy.  From the Python working window, just click on the "change working directory ..." and select the directory that has all the data.
 
-3. Run it, and if successful you will see a "success" in the text, plus some basic data statistics to let you know how it all went.  Your data will not be in pandas format.  If the CSV -> Pandas conversion was not successful, you'll get a bunch of errors and you'll need to figure out what went wrong.  I don't have any error exceptions in the code.
+3. Run it, and if successful you will see a "success" in the text, plus some basic data statistics to let you know how it all went.  Your data will now be in pandas format with new X.pkl and Y.pkl files in the working directory.  If the CSV -> Pandas conversion was not successful, you'll get a bunch of errors and you'll need to figure out what went wrong.  I don't have any error exceptions in the code.
 
 ## Now plot all the data
 
