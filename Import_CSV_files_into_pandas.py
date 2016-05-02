@@ -6,7 +6,7 @@ import wx
 
 
 ### version 11/10/2015
-
+## if using canopy, you have to switch the python backend to 'wx' 
 def get_path(wildcard):
     app = wx.App(None)
     style = wx.FD_OPEN | wx.FD_FILE_MUST_EXIST
